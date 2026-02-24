@@ -9,6 +9,18 @@ import type {
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
+function getWeightedRandomImpostorCount(totalPlayers: number): number {
+  const maxImpostors = totalPlayers - 1;
+  const totalWeight = (maxImpostors * (maxImpostors + 1)) / 2;
+  const random = Math.random() * totalWeight;
+  let cumulative = 0;
+  for (let i = 1; i <= maxImpostors; i++) {
+    cumulative += i;
+    if (random <= cumulative) return i;
+  }
+  return maxImpostors;
+}
+
 interface GameStore {
   gameState: GameState;
   playerNames: string[];
@@ -18,7 +30,7 @@ interface GameStore {
 
   setPlayerCount: (count: number, t: TranslationFunction) => void;
   setPlayerName: (index: number, name: string) => void;
-  setImpostorCount: (count: number) => void;
+  setImpostorCount: (count: number | "random") => void;
   setDifficulty: (difficulty: Difficulty) => void;
   toggleCategory: (category: string) => void;
   addCustomCategory: (category: string) => void;
@@ -26,7 +38,7 @@ interface GameStore {
   removeCustomCategory: (category: string) => void;
   toggleHints: () => void;
 
-  startGame: (t: TranslationFunction, language: Locale) => Promise<void>;
+  startGame: (t: TranslationFunction, language: Locale) => void;
   nextRevealPlayer: () => void;
   startDiscussion: () => void;
   endGame: () => void;
@@ -64,14 +76,17 @@ export const useGameStore = create<GameStore>()(
             (_, i) => state.playerNames[i] || `${t("player")} ${i + 1}`,
           );
 
+          const currentImpostor = state.gameState.impostorCount;
+          const newImpostorCount =
+            currentImpostor === "random"
+              ? "random"
+              : Math.min(currentImpostor, Math.floor(count / 3));
+
           return {
             gameState: {
               ...state.gameState,
               totalPlayers: count,
-              impostorCount: Math.min(
-                state.gameState.impostorCount,
-                Math.floor(count / 3),
-              ),
+              impostorCount: newImpostorCount,
             },
             playerNames: newPlayerNames,
           };
@@ -173,13 +188,18 @@ export const useGameStore = create<GameStore>()(
         }));
       },
 
-      startGame: async (t: TranslationFunction, language: Locale) => {
+      startGame: (t: TranslationFunction, language: Locale) => {
         const { gameState, playerNames } = get();
 
         if (gameState.selectedCategories.length === 0) {
           console.error("No categories selected");
           return;
         }
+
+        const resolvedImpostorCount =
+          gameState.impostorCount === "random"
+            ? getWeightedRandomImpostorCount(gameState.totalPlayers)
+            : gameState.impostorCount;
 
         const players: Player[] = Array.from(
           { length: gameState.totalPlayers },
@@ -195,7 +215,7 @@ export const useGameStore = create<GameStore>()(
           (_, i) => i,
         ).sort(() => Math.random() - 0.5);
 
-        for (let i = 0; i < gameState.impostorCount; i++) {
+        for (let i = 0; i < resolvedImpostorCount; i++) {
           players[shuffledIndexes[i]].role = "impostor";
         }
 
@@ -203,17 +223,11 @@ export const useGameStore = create<GameStore>()(
           gameState.selectedCategories[
             Math.floor(Math.random() * gameState.selectedCategories.length)
           ];
-        const wordWithHints = await getRandomWordWithHints(
+        const wordWithHints = getRandomWordWithHints(
           randomCategory,
           language,
-          gameState.difficulty,
         );
 
-        console.log(
-          `Starting game with category: ${randomCategory}, word: ${
-            wordWithHints.word
-          }, hints: ${wordWithHints.hints.join(", ")}`,
-        );
         set(state => ({
           gameState: {
             ...state.gameState,

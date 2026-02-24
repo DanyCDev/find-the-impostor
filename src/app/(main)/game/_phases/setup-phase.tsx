@@ -75,7 +75,7 @@ export default function SetupPhase() {
       if (isStarting) return;
       if (gameState.gameStarted) return;
       setIsStarting(true);
-      await startGame(t, locale);
+      startGame(t, locale);
     } catch (error) {
       console.error(error);
       toast.error(tError("somethingWentWrong"));
@@ -175,12 +175,17 @@ export default function SetupPhase() {
                 </Label>
                 <Select
                   value={gameState.impostorCount.toString()}
-                  onValueChange={value => setImpostorCount(Number(value))}
+                  onValueChange={value =>
+                    setImpostorCount(value === "random" ? "random" : Number(value))
+                  }
                 >
                   <SelectTrigger className="w-full">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
+                    <SelectItem value="random">
+                      🎲 {t("random")}
+                    </SelectItem>
                     {Array.from(
                       { length: gameState.totalPlayers - 1 },
                       (_, i) => i + 1,

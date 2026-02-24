@@ -28,7 +28,7 @@ export interface GameState {
   phase: "setup" | "wordreveal" | "discussion" | "results";
   players: Player[];
   totalPlayers: number;
-  impostorCount: number;
+  impostorCount: number | "random";
   currentWord: string;
   currentHints: string[];
   currentCategory: string;
