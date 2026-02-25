@@ -71,5 +71,8 @@ export const FALLBACK_WORDS_WITH_HINTS = {
       { word: "Hodiny", hints: ["čas", "tikanie", "čísla", "stena"] },
       { word: "Zrkadlo", hints: ["odraz", "sklo", "obraz", "vidieť"] },
     ],
+   films: [
+{ word: "FIlm1", hints: ["hehe1", "hyh2"]}
+],
   },
 };
