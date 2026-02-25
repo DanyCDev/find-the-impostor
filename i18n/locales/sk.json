@@ -1,0 +1,75 @@
+{
+  "Index": {
+    "title": "NÁJDI",
+    "slogan": "Reč je lacná, klamstvo je cenné",
+    "startGame": "Spustiť hru"
+  },
+  "SetupPhase": {
+    "gameSetup": "Nastavenie hry",
+    "configureSettings": "Nakonfiguruj nastavenia hry pred začatím zápasu.",
+    "players": "Hráči",
+    "ready": "pripravených",
+    "numberOfPlayers": "Počet hráčov:",
+    "playerNames": "Mená hráčov",
+    "player": "Hráč",
+    "addPlayer": "Pridať hráča",
+    "of": "z",
+    "gameSettings": "Nastavenia hry",
+    "language": "Jazyk",
+    "hints": "Nápovedy",
+    "showHints": "Zobraziť nápovedy impostorovi",
+    "enabled": "Zapnuté",
+    "disabled": "Vypnuté",
+    "categories": "Kategórie",
+    "selected": "vybraných",
+    "addCustomCategory": "Pridať kategóriu",
+    "done": "Hotovo",
+    "customCategoryPlaceholder": "Názov kategórie",
+    "selectCategory": "Vyber aspoň jednu kategóriu",
+    "startGame": "Spustiť hru",
+    "generateWords": "Spúšťam...",
+    "animals": "Zvieratá",
+    "food": "Jedlo",
+    "objects": "Predmety",
+    "movies": "Filmy",
+    "places": "Miesta",
+    "professions": "Povolania",
+    "settings": "Nastavenia",
+    "difficulty": "Obtiažnosť",
+    "easy": "Ľahké",
+    "medium": "Stredné",
+    "hard": "Ťažké",
+    "random": "Náhodne"
+  },
+  "WordRevealPhase": {
+    "chooseYourCard": "Vyber svoju kartu",
+    "selectAnyCard": "Vyber ľubovoľnú kartu na odhalenie roly hráča",
+    "playersRevealed": "hráčov odhalených",
+    "of": "z",
+    "tapToReveal": "Klepni na odhalenie",
+    "allCardsRevealed": "Všetky karty odhalené",
+    "everyPlayerSeen": "Každý hráč videl svoju rolu",
+    "startDiscussion": "Spustiť hru",
+    "player": "Hráč",
+    "readyToReveal": "Pripravený odhaliť svoju rolu?",
+    "impostor": "IMPOSTOR",
+    "yourHint": "Tvoja nápoveda:",
+    "yourWordIs": "Tvoje slovo je:",
+    "flipCard": "Otočiť kartu",
+    "nextPlayer": "Ďalší hráč"
+  },
+  "DiscussionPhase": {
+    "sayYourWords": "Povedzte svoje slová",
+    "starts": "začína",
+    "revealImpostor": "Odhaliť impostora"
+  },
+  "ResultsPhase": {
+    "results": "Výsledky",
+    "theWordWas": "Slovo bolo",
+    "newGame": "Nová hra",
+    "category": "Kategória"
+  },
+  "Error": {
+    "somethingWentWrong": "Niečo sa pokazilo, skús to znova."
+  }
+}

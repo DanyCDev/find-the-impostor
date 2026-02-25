@@ -27,7 +27,7 @@
     "customCategoryPlaceholder": "Category name",
     "selectCategory": "Please select at least one category",
     "startGame": "Start Game",
-    "generateWords": "Generate Words ✨",
+    "generateWords": "Starting...",
     "animals": "Animals",
     "food": "Food",
     "objects": "Objects",
@@ -38,7 +38,8 @@
     "difficulty": "Difficulty",
     "easy": "Easy",
     "medium": "Medium",
-    "hard": "Hard"
+    "hard": "Hard",
+    "random": "Random"
   },
   "WordRevealPhase": {
     "chooseYourCard": "Choose Your Card",

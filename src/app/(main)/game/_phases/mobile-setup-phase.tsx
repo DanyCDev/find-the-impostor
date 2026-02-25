@@ -59,7 +59,7 @@ export default function MobileSetupPhase() {
       if (isStarting) return;
       if (gameState.gameStarted) return;
       setIsStarting(true);
-      await startGame(t, locale);
+      startGame(t, locale);
     } catch (error) {
       console.error(error);
       toast.error(tError("somethingWentWrong"));
@@ -193,20 +193,29 @@ export default function MobileSetupPhase() {
                       Impostors
                     </div>
                     <div className="text-sm text-gray-400">
-                      {gameState.impostorCount} {t("of")}{" "}
-                      {gameState.totalPlayers}
+                      {gameState.impostorCount === "random"
+                        ? `🎲 ${t("random")}`
+                        : `${gameState.impostorCount} ${t("of")} ${gameState.totalPlayers}`}
                     </div>
                   </div>
                 </div>
                 <div className="flex w-20 items-center">
                   <Select
                     value={gameState.impostorCount.toString()}
-                    onValueChange={value => setImpostorCount(Number(value))}
+                    onValueChange={value =>
+                      setImpostorCount(value === "random" ? "random" : Number(value))
+                    }
                   >
                     <SelectTrigger className="h-10 w-full rounded-xl border-zinc-700 bg-zinc-800/50 text-white">
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent className="border-zinc-700 bg-zinc-900">
+                      <SelectItem
+                        value="random"
+                        className="text-white focus:bg-zinc-800 focus:text-white"
+                      >
+                        🎲
+                      </SelectItem>
                       {Array.from(
                         { length: gameState.totalPlayers - 1 },
                         (_, i) => i + 1,
